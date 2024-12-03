@@ -14,7 +14,6 @@
 <script lang="ts" setup>
 import { useFavoriteStore } from '@/store';
 import PokemonItem from './PokemonItem.vue';
-import LoaderComponent from '../LoaderComponent.vue';
 
 const favoriteStore = useFavoriteStore();
 
