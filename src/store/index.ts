@@ -5,19 +5,50 @@ import { PokeGlobalResponse } from "@/interfaces/pokeGlobal";
 import { PokeInfo } from "@/interfaces/pokeSingle";
 
 export const usePokeStore = defineStore('pokeStore', () => {
-  const pokemons = ref<PokeGlobalResponse | undefined>()
+  const pokemons = ref<PokeGlobalResponse>({
+    count: 0,
+    next: "",
+    previous: "",
+    results: []
+  })
   const pokemon = ref<PokeInfo | undefined>()
   const searchPoke = ref('')
   const loading = ref(false)
+  const next = ref<string | null>(null);
 
   async function gottaCatchEmAll() {
     loading.value = true
     try {
-      pokemons.value = await getAllPokemon(); 
+      const data = await getAllPokemon();
+
+      if (data) {
+        pokemons.value = data;
+        next.value = data.next;
+      }
+
     } catch (error) {
       console.error("Error fetching characters:", error);
     } finally {
       loading.value = false
+    }
+  }
+
+  async function loadNextBatch() {
+    if (!next.value || loading.value) return;
+
+    loading.value = true;
+    try {
+      const response = await fetch(next.value);
+      const data: PokeGlobalResponse = await response.json();
+      
+      if (data) {
+        pokemons.value.results.push(...data.results); // Append new results
+        next.value = data.next; // Update the `next` URL
+      }
+    } catch (error) {
+      console.error('Error fetching next Pokémon batch:', error);
+    } finally {
+      loading.value = false;
     }
   }
 
@@ -37,6 +68,8 @@ export const usePokeStore = defineStore('pokeStore', () => {
 
   return {
     loading,
+    next,
+    loadNextBatch,
     pokemon,
     pokemons,
     searchPoke,
