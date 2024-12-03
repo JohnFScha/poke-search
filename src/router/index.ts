@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '@/views/AboutView.vue'
+import HomeView from '@/views/HomeView.vue'
+import PokeSearchView from '@/views/PokeSearchView.vue'
+import FavoriteView from '@/views/FavoriteView.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -9,20 +10,20 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView
   },
   {
-    path: '/search',
+    path: '/pokesearch',
     name: 'pokesearch',
-    component: AboutView
+    component: PokeSearchView
   },
   {
     path: '/favorites',
     name: 'favorites',
-    component: AboutView
+    component: FavoriteView
   },
-  {
-    path: '/pokemon/:id',
-    name: 'pokemon',
-    component: AboutView
-  }
+  // {
+  //   path: '/pokemon/:id',
+  //   name: 'pokemon',
+  //   component: AboutView
+  // }
 ]
 
 const router = createRouter({

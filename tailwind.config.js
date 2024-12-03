@@ -1058,6 +1058,21 @@ module.exports = {
       40: '40',
       50: '50',
     },
+    extend: {
+      colors: {
+        pokeblack: "var(--poke-black)",
+        pokewhite: "var(--poke-white)",
+        pokedarkgray: "var(--poke-dark-gray)",
+        pokelightgray: "var(--poke-light-gray)",
+        pokeyellow: "var(--poke-yellow)",
+        pokered: "var(--poke-red)",
+        pokeredmuted: "var(--poke-red-muted)",
+        pokebackground: "var(--poke-background)"
+      },
+      boxShadow: {
+        'footer-shadow': '0px 3px 29px 0px #BFBFBF',
+      }
+    }
   },
   plugins: [require('daisyui')],
 }
