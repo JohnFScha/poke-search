@@ -3,7 +3,7 @@ import { PokeInfo, PokeSingleResponse } from "@/interfaces/pokeSingle";
 
 export async function getAllPokemon(): Promise<PokeGlobalResponse> {
   try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=200&offset=0`);
     if (!response.ok) {
       console.log('No pokemon in sight!');
     }

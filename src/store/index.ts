@@ -16,6 +16,7 @@ export const usePokeStore = defineStore("pokeStore", () => {
   const loading = ref(false);
   const loadingPoke = ref(false);
   const next = ref<string | null>(null);
+  const prev = ref<string | null>(null);
 
   async function gottaCatchEmAll() {
     loading.value = true;
@@ -25,9 +26,30 @@ export const usePokeStore = defineStore("pokeStore", () => {
       if (data) {
         pokemons.value = data;
         next.value = data.next;
+        prev.value = data.previous
       }
     } catch (error) {
       console.error("Error fetching characters:", error);
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function loadPrevBatch() {
+    if (!prev.value || loading.value) return;
+
+    loading.value = true;
+    try {
+      const response = await fetch(prev.value);
+      const data: PokeGlobalResponse = await response.json();
+
+      if (data) {
+        pokemons.value.results = data.results; // Append new results
+        prev.value = data.previous; // Update the `next` URL
+        next.value = data.next; // Update the `next` URL
+      }
+    } catch (error) {
+      console.error("Error fetching next Pokémon batch:", error);
     } finally {
       loading.value = false;
     }
@@ -42,8 +64,9 @@ export const usePokeStore = defineStore("pokeStore", () => {
       const data: PokeGlobalResponse = await response.json();
 
       if (data) {
-        pokemons.value.results.push(...data.results); // Append new results
+        pokemons.value.results = data.results; // Append new results
         next.value = data.next; // Update the `next` URL
+        prev.value = data.previous; // Update the `next` URL
       }
     } catch (error) {
       console.error("Error fetching next Pokémon batch:", error);
@@ -79,6 +102,8 @@ export const usePokeStore = defineStore("pokeStore", () => {
     loading,
     loadingPoke,
     next,
+    prev,
+    loadPrevBatch,
     loadNextBatch,
     pokemon,
     pokemons,

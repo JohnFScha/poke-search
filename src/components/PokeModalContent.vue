@@ -5,7 +5,7 @@
         <img :src="pokemon?.sprite" :alt="pokemon?.name" width="300" height="300">
       </figure>
       <div>
-        <ul class="flex flex-col p-5 gap-5 text-xl lg:text-3xl">
+        <ul class="flex flex-col p-5 gap-2 lg:gap-5 text-xl lg:text-3xl">
           <li class="border-b pb-3">
             <span class="text-pokeblack">Name:</span> {{ capitalize(pokemon.name) }}
           </li>

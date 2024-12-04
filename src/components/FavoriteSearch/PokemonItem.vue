@@ -1,14 +1,14 @@
 <template>
   <li
-    class="flex justify-between items-center gap-2 bg-pokewhite rounded-md px-10 py-5 text-3xl lg:text-4xl w-10/12 lg:w-full my-2 lg:my-5">
+    class="flex justify-between items-center gap-2 bg-pokewhite rounded-md px-10 py-5 text-xl lg:text-4xl w-10/12 lg:w-full my-2 lg:my-5">
     <p class="text-pokeblack cursor-pointer" @click="openModal(props.name)">{{ upperName }}</p>
     <button v-if="isFavorite" @click="favoriteStore.removeFavorite(props.name)"
       class="btn btn-circle bg-pokebackground border-0 hover:bg-pokebackground">
-      <Star :size="35" :stroke-width="0" class="fill-pokeyellow" />
+      <Star :stroke-width="0" class="fill-pokeyellow size-4 lg:size-8" />
     </button>
     <button v-else @click="favoriteStore.addFavorite({ name: props.name, id: props.id })"
       class="btn btn-circle bg-pokebackground border-0 hover:bg-pokebackground">
-      <Star :size="35" :stroke-width="0" class="fill-pokedarkgray" />
+      <Star :stroke-width="0" class="fill-pokedarkgray size-4 lg:size-8" />
     </button>
   </li>
 
