@@ -1,7 +1,7 @@
 <template>
   <section v-if="pokeStore.filteredPokemons.length > 0" class="w-full max-w-[1000px]">
     <ul class="flex flex-col items-center">
-      <PokemonItem v-for="(poke, index) in pokeStore.pokemons.results" :key="poke.name" :name="poke.name"
+      <PokemonItem v-for="(poke, index) in pokeStore.filteredPokemons" :key="poke.name" :name="poke.name"
         :id="index + 1" />
       <!-- <button @click="loadMorePokemon()"
         class="flex text-pokewhite justify-between items-center gap-2 bg-pokered rounded-md px-10 py-6 text-3xl lg:text-4xl w-10/12 lg:w-full my-2 mb-10 lg:my-5">
