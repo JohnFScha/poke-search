@@ -13,12 +13,14 @@
       </button>
     </ul>
   </section>
-  <section v-else class="w-full max-w-[1000px]">
+  <section v-else-if="pokeStore.filteredPokemons.length === 0 && pokeStore.pokemon" class="w-full max-w-[1000px]">
     <ul v-if="pokeStore.pokemon" class="flex flex-col items-center">
       <PokemonItem :key="pokeStore.pokemon.id" :name="pokeStore.pokemon.name" :id="pokeStore.pokemon.id" />
     </ul>
-    <ul v-else class="flex flex-col items-center">
-      <EmptyList /> 
+  </section>
+  <section v-else class="w-full max-w-[1000px] mb-[8rem]">
+    <ul class="flex flex-col items-center">
+      <EmptyList />
     </ul>
   </section>
 </template>
