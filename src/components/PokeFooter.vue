@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-pokewhite justify-center w-full flex py-7 fixed bottom-0 shadow-footer-shadow">
+  <footer class="bg-pokewhite justify-center w-full flex py-7 sticky bottom-0 shadow-footer-shadow">
     <section class="flex justify-center gap-10 w-full max-w-[900px]">
       <router-link 
       to="/pokesearch"

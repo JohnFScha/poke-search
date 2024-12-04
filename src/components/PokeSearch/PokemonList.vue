@@ -1,31 +1,31 @@
 <template>
-  <section class="w-full max-w-[1000px]">
+  <section v-if="pokeStore.searchPoke.length === 0" class="w-full max-w-[1000px]">
     <ul class="flex flex-col items-center">
-      <PokemonItem
-        v-for="(poke, index) in pokeStore.pokemons.results"
-        :key="poke.name"
-        :name="poke.name"
-        :id="index + 1"
-      />
+      <PokemonItem v-for="(poke, index) in pokeStore.pokemons.results" :key="poke.name" :name="poke.name"
+        :id="index + 1" />
+      <button @click="loadMorePokemon()"
+        class="flex text-pokewhite justify-between items-center gap-2 bg-pokered rounded-md px-10 py-6 text-3xl lg:text-4xl w-10/12 lg:w-full my-2 mb-10 lg:my-5">
+        Load more pokes!
+      </button>
     </ul>
-    <div
-      ref="loadMoreTrigger"
-      class="h-10 flex justify-center items-center w-full"
-      v-if="pokeStore.next"
-    >
-      <LoaderComponent v-if="pokeStore.loading" />
-    </div>
+  </section>
+  <section v-else class="w-full max-w-[1000px]">
+    <ul v-if="pokeStore.pokemon" class="flex flex-col items-center">
+      <PokemonItem :key="pokeStore.pokemon.id" :name="pokeStore.pokemon.name" :id="pokeStore.pokemon.id" />
+    </ul>
+    <ul v-else class="flex flex-col items-center">
+      <EmptyList /> 
+    </ul>
   </section>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { onMounted } from 'vue';
 import { usePokeStore } from '@/store';
 import PokemonItem from './PokemonItem.vue';
-import LoaderComponent from '../LoaderComponent.vue';
+import EmptyList from '../EmptyList.vue';
 
 const pokeStore = usePokeStore();
-const loadMoreTrigger = ref<HTMLDivElement | null>(null);
 
 async function fetchInitialPokemon() {
   if (!pokeStore.pokemons.results.length) {
@@ -39,30 +39,10 @@ async function loadMorePokemon() {
   }
 }
 
-let observer: IntersectionObserver | null = null;
-
 onMounted(() => {
   fetchInitialPokemon();
-  console.log(pokeStore.next, 'carbdkfkufnkjsangf')
-
-  // Set up the IntersectionObserver for infinite scrolling
-  observer = new IntersectionObserver(
-    async ([entry]) => {
-      if (entry.isIntersecting) {
-        await loadMorePokemon();
-      }
-    },
-    { root: null, rootMargin: '0px', threshold: 1.0 }
-  );
-
-  if (loadMoreTrigger.value) {
-    observer.observe(loadMoreTrigger.value);
-  }
 });
 
-onUnmounted(() => {
-  if (observer && loadMoreTrigger.value) {
-    observer.unobserve(loadMoreTrigger.value);
-  }
-});
+
+
 </script>

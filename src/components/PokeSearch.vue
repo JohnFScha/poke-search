@@ -1,15 +1,18 @@
 <template>
-  <main class="min-h-screen flex flex-col justify-start items-center bg-pokebackground">
+  <main v-if="!pokeStore.loading" class="min-h-screen flex flex-col justify-start items-center bg-pokebackground">
     <SearchBar />
     <PokemonList />
+    <PokeFooter />
   </main>
-  <PokeFooter />
+  <LoaderComponent v-else />
 </template>
 
 <script lang="ts" setup>
+import LoaderComponent from './LoaderComponent.vue';
 import PokeFooter from './PokeFooter.vue';
 import PokemonList from './PokeSearch/PokemonList.vue';
 import SearchBar from './PokeSearch/SearchBar.vue';
-</script>
+import { usePokeStore } from '@/store';
 
-<style scoped></style>
+const pokeStore = usePokeStore();
+</script>

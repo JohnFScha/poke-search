@@ -182,5 +182,6 @@ export interface PokeInfo {
   name: string;
   weight: number;
   height: number;
+  sprite: string;
   types: Type[]
 }

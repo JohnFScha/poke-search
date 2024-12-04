@@ -3,7 +3,7 @@ import { PokeInfo, PokeSingleResponse } from "@/interfaces/pokeSingle";
 
 export async function getAllPokemon(): Promise<PokeGlobalResponse> {
   try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=0`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=200&offset=0`);
     if (!response.ok) {
       console.log('No pokemon in sight!');
     }
@@ -26,8 +26,8 @@ export async function getPokeByName(poke: string): Promise<PokeInfo | undefined>
     if (!response.ok) {
       console.log('Pokemon ran away!');
     }
-    const { id, name, weight, height, types }: PokeSingleResponse = await response.json();
-    return { id, name, weight, height, types }
+    const { id, name, weight, height, types, sprites }: PokeSingleResponse = await response.json();
+    return { id, name, weight, height, types, sprite: sprites.other?.["official-artwork"].front_default ?? sprites.front_default }
   } catch (error) {
     console.error("Error fetching characters:", error);
   }

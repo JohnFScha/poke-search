@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { getAllPokemon, getPokeByName } from "@/api";
 import { PokeGlobalResponse } from "@/interfaces/pokeGlobal";
 import { PokeInfo } from "@/interfaces/pokeSingle";
@@ -14,6 +14,7 @@ export const usePokeStore = defineStore('pokeStore', () => {
   const pokemon = ref<PokeInfo | undefined>()
   const searchPoke = ref('')
   const loading = ref(false)
+  const loadingPoke = ref(false)
   const next = ref<string | null>(null);
 
   async function gottaCatchEmAll() {
@@ -53,21 +54,23 @@ export const usePokeStore = defineStore('pokeStore', () => {
   }
 
   async function throwPokeBall(poke: string) {
+    loadingPoke.value = true 
     try {
-      searchPoke.value = poke; 
       if (poke.trim() === "") {
-        await getAllPokemon();
         pokemon.value = undefined
       } else {
         pokemon.value = await getPokeByName(poke);
       }
     } catch (error) {
       console.error("Error refreshing character list:", error);
+    } finally {
+      loadingPoke.value = false
     }
   }
 
   return {
     loading,
+    loadingPoke,
     next,
     loadNextBatch,
     pokemon,
@@ -89,22 +92,26 @@ export const useFavoriteStore = defineStore('favorites', () => {
     }
   }
 
-  function removeFavorite(pokeId?: number, pokeName?: string) {
-    favorites.value = favorites.value.filter((fav) => fav.id !== pokeId || fav.name !== pokeName);
+  function removeFavorite(pokeName: string) {
+    favorites.value = favorites.value.filter((fav) => fav.name !== pokeName);
     localStorage.setItem('favorites', JSON.stringify(favorites.value));
   }
 
-  function searchFavorites(query: string) {
-    return favorites.value.filter(fav => 
-      fav.name?.toLowerCase().includes(query.toLowerCase())
+  const filteredFavorites = computed(() => {
+    if (!searchQuery.value.trim()) {
+      return favorites.value;
+    }
+    return favorites.value.filter(fav =>
+      fav.name?.toLowerCase().includes(searchQuery.value.toLowerCase())
     );
-  }
+  });
+
 
   return {
     favorites,
     addFavorite,
     removeFavorite,
     searchQuery,
-    searchFavorites
+    filteredFavorites
   }
 })

@@ -3,7 +3,6 @@
     <Search class="text-pokelightgray" :size="35" />
     <input
       v-model="favoriteStore.searchQuery"
-      @input="favoriteStore.searchFavorites(favoriteStore.searchQuery)"
       type="text"
       placeholder="Search"
       class="flex-grow bg-transparent outline-none text-2xl text-pokedarkgray placeholder-pokelightgray w-full"
