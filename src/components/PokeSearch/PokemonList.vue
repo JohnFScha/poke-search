@@ -1,12 +1,12 @@
 <template>
-  <section v-if="pokeStore.searchPoke.length === 0" class="w-full max-w-[1000px]">
+  <section v-if="pokeStore.filteredPokemons.length > 0" class="w-full max-w-[1000px]">
     <ul class="flex flex-col items-center">
       <PokemonItem v-for="(poke, index) in pokeStore.pokemons.results" :key="poke.name" :name="poke.name"
         :id="index + 1" />
-      <button @click="loadMorePokemon()"
+      <!-- <button @click="loadMorePokemon()"
         class="flex text-pokewhite justify-between items-center gap-2 bg-pokered rounded-md px-10 py-6 text-3xl lg:text-4xl w-10/12 lg:w-full my-2 mb-10 lg:my-5">
         Load more pokes!
-      </button>
+      </button> -->
     </ul>
   </section>
   <section v-else class="w-full max-w-[1000px]">
@@ -33,16 +33,16 @@ async function fetchInitialPokemon() {
   }
 }
 
-async function loadMorePokemon() {
-  if (pokeStore.next) {
-    await pokeStore.loadNextBatch();
-  }
-}
+// async function loadMorePokemon() {
+//   if (pokeStore.next) {
+//     await pokeStore.loadNextBatch();
+//   }
+// }
 
-onMounted(() => {
-  fetchInitialPokemon();
+
+onMounted (async() => {
+  await fetchInitialPokemon();
 });
-
 
 
 </script>

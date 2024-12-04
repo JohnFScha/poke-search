@@ -46,7 +46,7 @@
 
 <script lang="ts" setup>
 import { PokeInfo } from '@/interfaces/pokeSingle';
-import { capitalize, computed, defineProps, PropType, ref } from 'vue';
+import { capitalize, computed, defineProps, PropType } from 'vue';
 import { useFavoriteStore } from '@/store';
 import { Star } from 'lucide-vue-next'
 
@@ -57,8 +57,6 @@ const props = defineProps({
     type: Object as PropType<PokeInfo>,
   }
 })
-
-const showAlert = ref(false)
 
 const isFavorite = computed(() =>
   favoriteStore.favorites.some((fav) => fav.name === props?.pokemon?.name)
