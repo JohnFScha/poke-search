@@ -5,7 +5,7 @@
         <img :src="pokemon?.sprite" :alt="pokemon?.name" width="300" height="300">
       </figure>
       <div>
-        <ul class="flex flex-col p-5 gap-5 text-3xl">
+        <ul class="flex flex-col p-5 gap-5 text-xl lg:text-3xl">
           <li class="border-b pb-3">
             <span class="text-pokeblack">Name:</span> {{ capitalize(pokemon.name) }}
           </li>
@@ -28,7 +28,6 @@
           class="btn h-auto rounded-full bg-pokered text-pokewhite border-0 text-lg lg:text-2xl px-4 lg:p-4 hover:bg-pokeredmuted">
           Share to my friends
         </button>
-        +
 
         <button v-if="isFavorite" @click="favoriteStore.removeFavorite(pokemon.name)"
           class="btn btn-circle bg-pokebackground border-0 hover:bg-pokebackground">
