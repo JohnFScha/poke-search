@@ -4,11 +4,11 @@
     <p class="text-pokeblack cursor-pointer" @click="openModal(props.name)">{{ upperName }}</p>
     <button v-if="isFavorite" @click="favoriteStore.removeFavorite(props.name)"
       class="btn btn-circle bg-pokebackground border-0 hover:bg-pokebackground">
-      <Star :stroke-width="0" class="fill-pokeyellow size-4 lg:size-8" />
+      <Star :stroke-width="0" class="fill-pokeyellow size-7" />
     </button>
     <button v-else @click="favoriteStore.addFavorite({ name: props.name, id: props.id })"
       class="btn btn-circle bg-pokebackground border-0 hover:bg-pokebackground">
-      <Star :stroke-width="0" class="fill-pokedarkgray size-4 lg:size-8" />
+      <Star :stroke-width="0" class="fill-pokedarkgray size-7" />
     </button>
   </li>
 
