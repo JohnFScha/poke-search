@@ -91,7 +91,7 @@ export const usePokeStore = defineStore("pokeStore", () => {
   }
 
   const filteredPokemons = computed(() => {
-    if (searchPoke.value.length > 3) {
+    if (searchPoke.value.length > 2) {
       return pokemons.value.results.filter((poke) => poke.name.includes(searchPoke.value.toLowerCase()));
     } else {
       return pokemons.value.results;
