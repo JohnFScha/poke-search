@@ -4,7 +4,7 @@ module.exports = defineConfig({
   pwa: {
     name: "Poke search",
     themeColor: "#FF0000",
-    tileColor: "#FFF",
+    msTileColor: "#FFFFFF",
     manifestPath: "site.webmanifest",
     manifestOptions: {
       name: "Poke search",
@@ -12,6 +12,7 @@ module.exports = defineConfig({
       start_url: ".",
       display: "standalone",
       orientation: "portrait",
+      backgroundColor: "#FFFFFF",
       theme_color: "#FF0000",
     },
     iconPaths: {
