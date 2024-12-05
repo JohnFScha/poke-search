@@ -12,7 +12,7 @@ module.exports = defineConfig({
       start_url: ".",
       display: "standalone",
       orientation: "portrait",
-      backgroundColor: "#FFFFFF",
+      background_color: "#FFFFFF",
       theme_color: "#FF0000",
     },
     iconPaths: {
