@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full max-w-[1000px]">
+  <section class="w-full max-w-[1000px] mb-[8rem]">
     <ul v-if="favoriteStore.filteredFavorites.length > 0" class="flex flex-col items-center">
       <PokemonItem v-for="(poke, index) in favoriteStore.filteredFavorites" :key="index" :name="poke.name!"
         :id="index + 1" />
